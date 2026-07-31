@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class ScoreRanking {
+public class ScoreRankingOptimized {
 
     public static void bubbleSortOptimized(int[] scores) {
         int n = scores.length;
