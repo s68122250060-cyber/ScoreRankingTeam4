@@ -1,0 +1,48 @@
+import java.util.Arrays;
+
+public class ScoreRanking {
+
+    public static void bubbleSortOptimized(int[] scores) {
+        int n = scores.length;
+        int comparisons = 0; // ตัวแปรนับจำนวนครั้งที่เปรียบเทียบ
+        int swaps = 0;       // ตัวแปรนับจำนวนครั้งที่สลับข้อมูล
+
+        System.out.println("คะแนนก่อนเรียง: " + Arrays.toString(scores));
+
+        // วนลูปเรียงลำดับจากมากไปน้อย (แบบปรับปรุง)
+        for (int i = 0; i < n - 1; i++) {
+            // 1. เพิ่มตัวแปร swapped เริ่มต้นเป็น false ทุกรอบของลูปนอก
+            boolean swapped = false; 
+
+            for (int j = 0; j < n - 1 - i; j++) {
+                comparisons++; // นับการเปรียบเทียบทุกครั้ง
+
+                // เงื่อนไขเรียงจากมากไปน้อย: ถ้าตัวซ้ายน้อยกว่าตัวขวา ให้สลับตำแหน่ง
+                if (scores[j] < scores[j + 1]) {
+                    int temp = scores[j];
+                    scores[j] = scores[j + 1];
+                    scores[j + 1] = temp;
+
+                    swaps++;        // นับการสลับข้อมูล
+                    swapped = true; // 2. บันทึกว่ารอบนี้มีการสลับเกิดขึ้นจริง
+                }
+            }
+
+            // 3. หากจบลูปในแล้วไม่มีการสลับข้อมูลเลย (swapped ยังเป็น false)
+            // แสดงว่าข้อมูลเรียงเสร็จสมบูรณ์แล้ว สั่งหยุดทำงานทันที
+            if (!swapped) {
+                break;
+            }
+        }
+
+        System.out.println("คะแนนหลังเรียง (มากไปน้อย): " + Arrays.toString(scores));
+        System.out.println("------------------------------------");
+        System.out.println("จำนวนครั้งของการเปรียบเทียบ (Comparisons): " + comparisons + " ครั้ง");
+        System.out.println("จำนวนครั้งของการสลับข้อมูล (Swaps): " + swaps + " ครั้ง");
+    }
+
+    public static void main(String[] args) {
+        int[] scores = {72, 91, 65, 88, 79};
+        bubbleSortOptimized(scores);
+    }
+}
